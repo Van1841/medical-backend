@@ -56,6 +56,16 @@ def init_db():
     conn.commit()
     conn.close()
 
+# def load_ml_model():
+#     with open('model/risk_model.pkl', 'rb') as f:
+#         model = pickle.load(f)
+#     return model
+
+# model = load_ml_model()
+
+init_db()
+os.makedirs('uploads', exist_ok=True)
+
 def load_ml_model():
     with open('model/risk_model.pkl', 'rb') as f:
         model = pickle.load(f)
@@ -425,8 +435,16 @@ def calculate_trends(results):
     
     return trends
 
+
+# Initialize database on startup
+
 if __name__ == '__main__':
-    init_db()
-    os.makedirs('uploads', exist_ok=True)
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=False, host='0.0.0.0', port=port)
+
+
+# if __name__ == '__main__':
+#     init_db()
+#     os.makedirs('uploads', exist_ok=True)
+#     port = int(os.environ.get('PORT', 5000))
+#     app.run(debug=False, host='0.0.0.0', port=port)
