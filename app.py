@@ -43,7 +43,7 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def init_db():
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect('users.db', timeout=10.0, check_same_thread=False)
     cursor = conn.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS users (
@@ -92,7 +92,7 @@ def signup():
     hashed_password = generate_password_hash(password)
     
     try:
-        conn = sqlite3.connect('users.db')
+        conn = sqlite3.connect('users.db', timeout=10.0, check_same_thread=False)
         cursor = conn.cursor()
         cursor.execute('INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
                      (name, email, hashed_password))
@@ -112,7 +112,7 @@ def login():
     if not email or not password:
         return jsonify({'error': 'Email and password are required'}), 400
     
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect('users.db', timeout=10.0, check_same_thread=False)
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM users WHERE email = ?', (email,))
     user = cursor.fetchone()
