@@ -27,15 +27,15 @@ CORS(app,
          'http://127.0.0.1:8000',
          'http://localhost:3000',
          'http://localhost:5173',
-         'https://your-frontend-domain.vercel.app'
+         'https://medical-frontend-lemon.vercel.app'
      ],
      allow_headers=['Content-Type', 'Authorization'],
      methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'])
 
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
-app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'  # Changed from 'None' for localhost
-app.config['SESSION_COOKIE_SECURE'] = False  # Changed to False for localhost
+app.config['SESSION_COOKIE_SAMESITE'] = 'None'  # Changed from 'None' for localhost
+app.config['SESSION_COOKIE_SECURE'] = True  # Changed to False for localhost
 
 ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'txt'}
 
